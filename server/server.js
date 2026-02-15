@@ -38,7 +38,23 @@ io.on("connection", (socket) => {
 
 //Middleware setup
 app.use(express.json({ limit: "4mb" }));
-app.use(cors());
+
+const allowedOrigins = [
+  "https://chat-app-five-psi.vercel.app", // your frontend domain
+];
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) === -1) {
+        return callback(new Error("CORS not allowed"), false);
+      }
+      return callback(null, true);
+    },
+    credentials: true,
+  })
+);
+app.options("*", cors());
 
 //Routes setup
 app.use("/api/status", (req, res) => res.send("Server is live"));
