@@ -49,7 +49,7 @@ app.use(
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
-app.options("*", cors());
+app.options(/.*/, cors());
 
 //Routes setup
 app.use("/api/status", (req, res) => res.send("Server is live"));
