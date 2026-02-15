@@ -44,12 +44,11 @@ const allowedOrigins = [
 ];
 app.use(
   cors({
-    origin: allowedOrigins,
-    credentials: true,
+    origin: "*",
+
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
-app.options(/.*/, cors());
 
 //Routes setup
 app.use("/api/status", (req, res) => res.send("Server is live"));
